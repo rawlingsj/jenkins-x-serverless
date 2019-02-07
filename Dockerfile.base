@@ -1,6 +1,7 @@
 FROM jenkinsxio/jenkins-filerunner:0.1.3
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update
+RUN apt-get install -y \
   wget \
   bzip2 \
   python-pip \
