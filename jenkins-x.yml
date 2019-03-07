@@ -145,12 +145,12 @@ pipelineConfig:
           #     - --cache-dir=/workspace
           #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
 
-          - image: jenkinsxio/builder-maven
+          - image: jenkinsxio/builder-base:0.1.274s
             command: sleep
             args:
             - "30000"
 
-          - image: jenkinsxio/builder-maven
+          - image: jenkinsxio/builder-base:0.1.274
             command: updatebot
             args:
               - push-regex
