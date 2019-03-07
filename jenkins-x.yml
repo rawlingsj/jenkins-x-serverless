@@ -8,144 +8,148 @@ pipelineConfig:
         stages:
         - name: release
           steps:
-          - name: warm-cache
-            image: gcr.io/kaniko-project/warmer
-            args:
-              - --cache-dir=/workspace
-              - --image=jenkinsxio/jenkins-base:256.0.121
-            command: /kaniko/warmer
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.csharp
-              - --destination=docker.io/jenkinsxio/jenkins-csharp:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.cwp
-              - --destination=docker.io/jenkinsxio/jenkins-cwp:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.elixir
-              - --destination=docker.io/jenkinsxio/jenkins-elixir:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.go
-              - --destination=docker.io/jenkinsxio/jenkins-go:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.gradle
-              - --destination=docker.io/jenkinsxio/jenkins-gradle:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.javascript
-              - --destination=docker.io/jenkinsxio/jenkins-javascript:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.jenkins
-              - --destination=docker.io/jenkinsxio/jenkins-jenkins:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.maven
-              - --destination=docker.io/jenkinsxio/jenkins-maven:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.maven-java11
-              - --destination=docker.io/jenkinsxio/jenkins-maven-java11:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.python
-              - --destination=docker.io/jenkinsxio/jenkins-python:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.ruby
-              - --destination=docker.io/jenkinsxio/jenkins-ruby:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.rust
-              - --destination=docker.io/jenkinsxio/jenkins-rust:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
-          - image: rawlingsj/executor:dev40
-            command: /kaniko/executor
-            args:
-              - --dockerfile=Dockerfile.scala
-              - --destination=docker.io/jenkinsxio/jenkins-scala:${inputs.params.version}
-              - --context=/workspace/workspace
-              - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
-              - --cache=true
-              - --cache-dir=/workspace
-              - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - name: warm-cache
+          #   image: gcr.io/kaniko-project/warmer
+          #   args:
+          #     - --cache-dir=/workspace
+          #     - --image=jenkinsxio/jenkins-base:256.0.121
+          #   command: /kaniko/warmer
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.csharp
+          #     - --destination=docker.io/jenkinsxio/jenkins-csharp:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.cwp
+          #     - --destination=docker.io/jenkinsxio/jenkins-cwp:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.elixir
+          #     - --destination=docker.io/jenkinsxio/jenkins-elixir:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.go
+          #     - --destination=docker.io/jenkinsxio/jenkins-go:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.gradle
+          #     - --destination=docker.io/jenkinsxio/jenkins-gradle:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.javascript
+          #     - --destination=docker.io/jenkinsxio/jenkins-javascript:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.jenkins
+          #     - --destination=docker.io/jenkinsxio/jenkins-jenkins:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.maven
+          #     - --destination=docker.io/jenkinsxio/jenkins-maven:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.maven-java11
+          #     - --destination=docker.io/jenkinsxio/jenkins-maven-java11:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.python
+          #     - --destination=docker.io/jenkinsxio/jenkins-python:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.ruby
+          #     - --destination=docker.io/jenkinsxio/jenkins-ruby:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.rust
+          #     - --destination=docker.io/jenkinsxio/jenkins-rust:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
+          # - image: rawlingsj/executor:dev40
+          #   command: /kaniko/executor
+          #   args:
+          #     - --dockerfile=Dockerfile.scala
+          #     - --destination=docker.io/jenkinsxio/jenkins-scala:${inputs.params.version}
+          #     - --context=/workspace/workspace
+          #     - --cache-repo=jenkins-x-docker-registry.jx.svc.cluster.local:5000/
+          #     - --cache=true
+          #     - --cache-dir=/workspace
+          #     - --skip-tls-verify-registry=jenkins-x-docker-registry.jx.svc.cluster.local:5000
 
-          
+          - image: jenkinsxio/builder-maven
+            command: sleep
+            args:
+            - "30000"
+
           - image: jenkinsxio/builder-maven
             command: updatebot
             args:
